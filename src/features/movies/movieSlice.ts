@@ -46,10 +46,13 @@ const movieSlice = createSlice({
         state.data = action.payload;
       }
     );
-    builder.addCase(getMovies.rejected, (state, action: PayloadAction<any>) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
+    builder.addCase(
+      getMovies.rejected,
+      (state, action: PayloadAction<unknown>) => {
+        state.loading = false;
+        if (typeof action.payload === 'string') state.error = action.payload;
+      }
+    );
   },
 });
 
